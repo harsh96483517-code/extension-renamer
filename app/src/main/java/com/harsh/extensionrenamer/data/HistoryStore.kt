@@ -32,17 +32,19 @@ class HistoryStore(context: Context) {
     private val file = File(context.applicationContext.filesDir, "rename_history.json")
     private val lock = Any()
 
-    fun load(): List<HistoryOperation> = synchronized(lock) {
-        if (!file.exists()) return emptyList()
-        try {
-            val array = JSONArray(file.readText())
-            val result = ArrayList<HistoryOperation>(array.length())
-            for (i in 0 until array.length()) {
-                array.optJSONObject(i)?.let { result.add(parse(it)) }
+    fun load(): List<HistoryOperation> {
+        synchronized(lock) {
+            if (!file.exists()) return emptyList()
+            return try {
+                val array = JSONArray(file.readText())
+                val result = ArrayList<HistoryOperation>(array.length())
+                for (i in 0 until array.length()) {
+                    array.optJSONObject(i)?.let { result.add(parse(it)) }
+                }
+                result
+            } catch (t: Throwable) {
+                emptyList()
             }
-            result
-        } catch (t: Throwable) {
-            emptyList()
         }
     }
 
