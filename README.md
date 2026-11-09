@@ -17,6 +17,12 @@ The APK is built by GitHub Actions, so you do not need Android Studio to install
 
 The debug APK is a normal, installable build — no Play Store account needed.
 
+**Direct link (always the newest build):**
+`https://github.com/harsh96483517-code/extension-renamer/releases/download/latest/app-debug.apk`
+
+Every push to `main` re-publishes the APK on the `latest` release, so this URL always points at
+the newest working build.
+
 ## Features
 
 - **Bulk rename** — pick any number of files and change all their extensions in one go.
